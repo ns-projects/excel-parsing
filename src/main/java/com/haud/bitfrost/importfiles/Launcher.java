@@ -1,6 +1,5 @@
 package com.haud.bitfrost.importfiles;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -16,13 +15,14 @@ public class Launcher {
 		importcost.readFromExcel("price_example_xlsx.xlsx");
 
 		System.out.println("");
+
 		Hssf hssf = new Hssf();
-		hssf.run();
-		
+		hssf.excel97xlsread("price_example_excel97.xls");
+
 		System.out.println("");
-		File file = new File("price_example_opendocument.ods");
+
 		ODSReader ODSReader = new ODSReader();
-		ODSReader.readODS(file);
+		ODSReader.readODS("price_example_opendocument.ods");
 	}
 
 }

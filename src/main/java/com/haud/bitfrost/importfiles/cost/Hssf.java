@@ -2,33 +2,82 @@ package com.haud.bitfrost.importfiles.cost;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.haud.bitfrost.importfiles.model.PriceDTO;
+
 public class Hssf {
-	public void run() throws IOException {
-		FileInputStream fis = new FileInputStream("price_example_excel97.xls");
-		HSSFWorkbook wb = new HSSFWorkbook(fis);
+	public void excel97xlsread(String file) throws IOException {
 
-		HSSFSheet sheet = wb.getSheetAt(0);
+		try {
+			HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(file));
+			HSSFSheet sheet = workbook.getSheetAt(0);
+			ArrayList<PriceDTO> list = new ArrayList<PriceDTO>();
 
-		Iterator<Row> rowIt = sheet.iterator();
+			for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
+				PriceDTO e = new PriceDTO(list);
 
-		while (rowIt.hasNext()) {
-			Row row = rowIt.next();
+				Row ro = sheet.getRow(i);
+				for (int j = ro.getFirstCellNum(); j <= ro.getLastCellNum(); j++) {
+					Cell ce = ro.getCell(j);
+					if (j == 0) {
 
-			Iterator<Cell> cellIterator = row.cellIterator();
+						e.setCountry(ce.getStringCellValue());
+					}
+					if (j == 1) {
+						e.setNetwork(ce.getStringCellValue());
+					}
+					if (j == 2) {
+						e.setMcc(ce.getNumericCellValue());
+					}
+					if (j == 3) {
+						e.setMnc(ce.getNumericCellValue());
+					}
+					if (j == 4) {
+						e.setRoute(ce.getStringCellValue());
+					}
+					if (j == 5) {
+						e.setPrice(ce.getNumericCellValue());
+					}
 
-			while (cellIterator.hasNext()) {
-				Cell cell = cellIterator.next();
-				System.out.print(cell.toString() + ";");
+				}
+				list.add(e);
 			}
-			System.out.println();
+			for (PriceDTO emp : list) {
+				System.out.println("Country:" + emp.getCountry() + ";" + " network:" + emp.getNetwork() + ";" + " Mcc:"
+						+ emp.getMcc() + ";" + " Mnc:" + emp.getMnc() + ";" + " Route:" + emp.getRoute() + ";"
+						+ " Price:" + emp.getPrice());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
-		wb.close();
+
 	}
 }
+
+//FileInputStream fis = new FileInputStream(file);
+//HSSFWorkbook wb = new HSSFWorkbook(fis);
+//
+//HSSFSheet sheet = wb.getSheetAt(0);
+//
+//Iterator<Row> rowIt = sheet.iterator();
+//
+//while (rowIt.hasNext()) {
+//	Row row = rowIt.next();
+//
+//	Iterator<Cell> cellIterator = row.cellIterator();
+//
+//	while (cellIterator.hasNext()) {
+//		Cell cell = cellIterator.next();
+//		System.out.print(cell.toString() + ";");
+//	}
+//	System.out.println();
+//}
+//wb.close();
