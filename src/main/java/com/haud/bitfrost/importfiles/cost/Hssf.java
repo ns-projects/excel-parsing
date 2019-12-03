@@ -22,29 +22,23 @@ public class Hssf {
 			for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
 				PriceDTO e = new PriceDTO(list);
 
-				Row ro = sheet.getRow(i);
-				for (int j = ro.getFirstCellNum(); j <= ro.getLastCellNum(); j++) {
-					Cell ce = ro.getCell(j);
+				Row row = sheet.getRow(i);
+				for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
+					Cell ce = row.getCell(j);
 					if (j == 0) {
 
 						e.setCountry(ce.getStringCellValue());
-					}
-					if (j == 1) {
+					} else if (j == 1) {
 						e.setNetwork(ce.getStringCellValue());
-					}
-					if (j == 2) {
+					} else if (j == 2) {
 						e.setMcc(ce.getNumericCellValue());
-					}
-					if (j == 3) {
+					} else if (j == 3) {
 						e.setMnc(ce.getNumericCellValue());
-					}
-					if (j == 4) {
+					} else if (j == 4) {
 						e.setRoute(ce.getStringCellValue());
-					}
-					if (j == 5) {
+					} else if (j == 5) {
 						e.setPrice(ce.getNumericCellValue());
 					}
-
 				}
 				list.add(e);
 			}
@@ -54,11 +48,12 @@ public class Hssf {
 						+ " Price:" + emp.getPrice());
 			}
 
+			workbook.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-
 	}
 }
 

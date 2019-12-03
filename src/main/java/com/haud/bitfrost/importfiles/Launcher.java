@@ -11,11 +11,6 @@ public class Launcher {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		Xssf importcost = new Xssf();
-		importcost.readFromExcel("price_example_xlsx.xlsx");
-
-		System.out.println("");
-
 		Hssf hssf = new Hssf();
 		hssf.excel97xlsread("price_example_excel97.xls");
 
@@ -23,6 +18,10 @@ public class Launcher {
 
 		ODSReader ODSReader = new ODSReader();
 		ODSReader.readODS("price_example_opendocument.ods");
+
+		System.out.println("");
+		Xssf importcost = new Xssf();
+		importcost.readFromExcel("price_example_xlsx.xlsx");
 	}
 
 }

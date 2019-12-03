@@ -1,22 +1,27 @@
 package com.haud.bitfrost.importfiles.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PriceDTO {
-	
+
 	private String country;
-	
+
 	private String network;
-	
+
 	private double mcc;
-	
+
 	private double mnc;
-	
+
 	private String route;
 
 	private double price;
 
-	public PriceDTO(String country, String network, int mcc, int mnc, String route, float price) {
+	public PriceDTO() {
+
+	}
+
+	public PriceDTO(String country, String network, double mcc, double mnc, String route, double price) {
 		super();
 		this.country = country;
 		this.network = network;
@@ -26,7 +31,7 @@ public class PriceDTO {
 		this.price = price;
 	}
 
-	public PriceDTO(List<PriceDTO> list) {
+	public PriceDTO(ArrayList<PriceDTO> list) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -50,16 +55,16 @@ public class PriceDTO {
 		return mcc;
 	}
 
-	public void setMcc(double d) {
-		this.mcc = d;
+	public void setMcc(double mcc) {
+		this.mcc = mcc;
 	}
 
 	public double getMnc() {
 		return mnc;
 	}
 
-	public void setMnc(double d) {
-		this.mnc = d;
+	public void setMnc(double mnc) {
+		this.mnc = mnc;
 	}
 
 	public String getRoute() {
@@ -74,9 +79,14 @@ public class PriceDTO {
 		return price;
 	}
 
-	public void setPrice(double d) {
-		this.price = d;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "PriceDTO [country=" + country + ", network=" + network + ", mcc=" + mcc + ", mnc=" + mnc + ", route="
+				+ route + ", price=" + price + "]";
+	}
+
 }
